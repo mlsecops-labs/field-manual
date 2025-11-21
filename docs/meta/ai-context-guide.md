@@ -1,7 +1,7 @@
 # AI Context Guide (Updated for MLSecOps Field Manual Subproject)
 
 ## Overview
-This guide frames how the AI assistant collaborates with the ongoing **MLSecOps Lab** and the newly formalized **MLSecOps Field Manual** subproject. Both bodies of work now live within a shared ChatGPT Project context, while remaining independent in your GitHub and Obsidian structures.
+This guide frames how the AI assistant collaborates with the ongoing **MLSecOps Lab** and the newly formalized **MLSecOps Field Manual** subproject. Both bodies of work now live within a shared ChatGPT Project context, while remaining independent in your GitHub.
 
 The purpose of this guide is to maintain clarity about your long‑term goals, the role of each subproject, and how the assistant should operate within this unified context.
 
@@ -83,15 +83,6 @@ The Field Manual is your **public legacy**.
 The lab produces knowledge.
 The Field Manual distills and publishes it.
 The assistant must always keep both contexts active.
-
----
-
-## Obsidian Vault
-- Your source of truth for internal notes
-- Contains the working drafts for the Field Manual
-- Mirrors the structure of your standalone Field Manual repo
-
-Everything should remain simple, lightweight, and human‑usable.
 
 ---
 
