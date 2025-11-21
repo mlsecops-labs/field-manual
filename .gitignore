@@ -1,0 +1,74 @@
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Python and notebooks
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+pip-wheel-metadata/
+*.whl
+.python-version
+.venv/
+.env
+.envrc
+.ipynb_checkpoints/
+.jupyter/
+*.nbconvert.ipynb
+
+# Notebook outputs and exports
+outputs/
+exports/
+reports/
+derivatives/
+artifacts/
+*.html
+*.pdf
+*.png
+*.svg
+
+# Logs
+*.log
+
+# Editors and workspace
+.vscode/
+.vscode-test/
+.idea/
+*.code-workspace
+
+# Obsidian vault
+.obsidian/
+.obsidian-templates/
+.obsidian-snippets/
+.obsidian/workspace
+.obsidian/workspace.json
+
+# Site generators and builds
+.quarto/
+_site/
+_book/
+public/
+
+# JavaScript tooling
+node_modules/
+docs/website/.cache/
+docs/website/.next/
+
+# Caches
+.cache/
+.mypy_cache/
+.pytest_cache/
+coverage/
+htmlcov/
+
+# Temp files
+/tmp/
+*.tmp
+*.swp
+*.swo
