@@ -1,1 +1,81 @@
+/* Global --------------------------------------------------------------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    background: #0a0f1a; /* deep navy */
+    color: #e6e8eb;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
+/* Layout --------------------------------------------------------------- */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    gap: 4rem;
+    flex-wrap: wrap;
+}
+
+/* Logo ---------------------------------------------------------------- */
+.logo-container {
+    width: 390px;
+    height: 390px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;     /* prevents stretching */
+    image-rendering: auto;
+    display: block;
+}
+
+/* Title Block ---------------------------------------------------------- */
+.title-block {
+    max-width: 560px;
+}
+
+h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.05em;
+    color: white;
+    margin: 0 0 1.2rem 0;
+}
+
+.tm {
+    font-size: 1.4rem;
+    vertical-align: super;
+    margin-left: 4px;
+}
+
+.motto {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: #d14f4f;
+    margin-top: -0.5rem;
+    margin-bottom: 1.8rem;
+}
+
+.tagline {
+    font-size: 1.15rem;
+    color: #b7bcc7;
+    line-height: 1.5;
+}
+
+/* Footer --------------------------------------------------------------- */
+footer {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    margin-top: auto;
+    color: #9aa2b2;
+    font-size: 0.9rem;
+}
