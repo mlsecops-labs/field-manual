@@ -30,7 +30,6 @@ derivatives/
 artifacts/
 *.html
 *.pdf
-*.png
 *.svg
 
 # Logs
