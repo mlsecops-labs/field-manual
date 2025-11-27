@@ -1,6 +1,6 @@
 
 ---
-MLSecOps Field Manual™ – Concept v1 (Working Draft)
+MLSecOps Field Manual™ – Concept (Working Draft)
 
 A Living, Open, Practical Contribution to the AI Security Community
 
