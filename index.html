@@ -1,589 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>MLSecOps Field Manual™</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="MLSecOps Field Manual™ — Vigilis in Machina™. A long-term, public, reproducible library of small MLSecOps modules and patterns." />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <title>MLSecOps Field Manual</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="/favicon.png">
   <style>
     :root {
-      --bg: #020617;
-      --bg-alt: #020813;
-      --card: #0b1220;
-      --border: #1f2937;
-      --accent: #ef4444;
-      --accent-soft: #7f1d1d;
-      --accent-glow: rgba(239, 68, 68, 0.15);
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --muted-soft: #6b7280;
-      --link: #f97373;
+      --bg: #fafafa;
+      --text: #333;
+      --text-muted: #666;
+      --text-dark: #111;
+      --link: #0066cc;
+      --border: #ddd;
     }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    
+    [data-theme="dark"] {
+      --bg: #1a1a1a;
+      --text: #d4d4d4;
+      --text-muted: #a0a0a0;
+      --text-dark: #ffffff;
+      --link: #4a9eff;
+      --border: #333;
     }
-
+    
     body {
-      font-family: "Space Grotesk", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: #010409;
-      background-image: url('assets/background.png');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       line-height: 1.6;
-    }
-
-    a {
-      color: var(--link);
-      text-decoration: none;
-      transition: color 0.2s ease;
-    }
-
-    a:hover {
-      color: #fca5a5;
-    }
-
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    /* Header */
-    header {
-      padding: 1.5rem 0;
-      border-bottom: 1px solid rgba(31, 41, 55, 0.5);
-    }
-
-    .header-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .wordmark {
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .wordmark span {
-      color: var(--accent);
-    }
-
-    .header-meta {
-      display: flex;
-      gap: 0.75rem;
-      font-size: 0.75rem;
-      color: var(--muted-soft);
-    }
-
-    .pill {
-      padding: 0.2rem 0.75rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      background: rgba(15, 23, 42, 0.6);
-    }
-
-    /* Hero Card */
-    .hero {
-      padding: 3rem 0 2rem;
-    }
-
-    .hero-card {
-      max-width: 900px;
-      margin: 0 auto;
-      border-radius: 1.5rem;
-      border: 1px solid var(--border);
-      background: radial-gradient(circle at top left, #0b1120 0, #020617 55%);
-      padding: 2.5rem 2rem 2rem;
-      text-align: center;
-    }
-
-    .hero-logo-wrap {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-logo {
-      width: 100%;
-      max-width: 380px;
-      border-radius: 50%;
-    }
-
-    .hero h1 {
-      font-size: clamp(1.5rem, 3vw + 0.75rem, 2.2rem);
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-
-    .hero h1 .highlight {
-      color: var(--accent);
-    }
-
-    .hero h1 .tm {
-      font-size: 0.5em;
-      vertical-align: super;
-      color: var(--muted);
-    }
-
-    .hero-body {
-      font-size: 1rem;
-      color: var(--muted);
-      max-width: 680px;
-      margin: 0 auto 1.5rem;
-      line-height: 1.75;
-    }
-
-    .hero-body strong {
+      background: var(--bg);
       color: var(--text);
-      font-weight: 500;
+      transition: background 0.2s ease, color 0.2s ease;
     }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      justify-content: center;
-    }
-
-    @media (max-width: 640px) {
-      .hero-card {
-        padding: 2rem 1.4rem 1.6rem;
-      }
-      
-      .hero-logo {
-        max-width: 280px;
-      }
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      border-radius: 8px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
-      border-color: rgba(248, 113, 113, 0.3);
-      color: #fff;
-      box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(220, 38, 38, 0.4);
-      color: #fff;
-    }
-
-    .btn-ghost {
-      border-color: rgba(148, 163, 184, 0.3);
-      color: var(--muted);
-      background: rgba(15, 23, 42, 0.5);
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--text);
-    }
-
-    .hero-logo-wrap {
-      display: flex;
-      justify-content: center;
-    }
-
-    .hero-logo {
-      width: 100%;
-      max-width: 420px;
-      border-radius: 50%;
-    }
-
-    /* Sections */
-    .section {
-      padding: 2rem 0;
-    }
-
-    .section-header {
-      margin-bottom: 1.75rem;
-    }
-
-    .section-title {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      color: var(--muted-soft);
-      font-weight: 500;
-    }
-
-    /* Card Grid */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.25rem;
-    }
-
-    @media (max-width: 900px) {
-      .grid-3 {
-        grid-template-columns: 1fr;
-      }
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .card {
-      background: linear-gradient(135deg, rgba(11, 18, 32, 0.9), rgba(11, 18, 32, 0.6));
-      border: 1px solid rgba(31, 41, 55, 0.8);
-      border-radius: 12px;
-      padding: 1.5rem;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-
-    .card:hover {
-      border-color: rgba(239, 68, 68, 0.3);
-      transform: translateY(-2px);
-    }
-
-    .card-tag {
-      display: inline-block;
-      padding: 0.15rem 0.6rem;
-      border-radius: 4px;
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.2);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--link);
-      margin-bottom: 0.75rem;
-    }
-
-    .card h3 {
-      font-size: 1rem;
+    
+    h1 {
+      font-size: 1.8rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
-      color: var(--text);
+      color: var(--text-dark);
     }
-
-    .card p {
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.65;
-    }
-
-    /* Roadmap */
-    .roadmap-card {
-      background: linear-gradient(135deg, rgba(11, 18, 32, 0.95), rgba(2, 6, 23, 0.9));
-      border: 1px solid rgba(55, 65, 81, 0.6);
-      border-radius: 12px;
-      padding: 1.75rem;
-    }
-
-    .roadmap-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.25rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(31, 41, 55, 0.6);
-    }
-
-    .roadmap-header h3 {
+    
+    .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
       font-size: 1rem;
-      font-weight: 600;
+    }
+    
+    .description {
+      margin-bottom: 2rem;
       color: var(--text);
     }
-
-    .roadmap-header span {
-      font-size: 0.75rem;
-      color: var(--muted-soft);
+    
+    h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 1rem;
+      color: var(--text-dark);
     }
-
-    .roadmap-list {
+    
+    .modules {
+      margin-bottom: 2rem;
+    }
+    
+    .module-item {
+      margin-bottom: 0.8rem;
+      padding-left: 1.5rem;
+    }
+    
+    .module-item.complete {
       list-style: none;
-      display: grid;
-      gap: 0.5rem;
+      position: relative;
     }
-
-    .roadmap-list li {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 1rem;
-      padding: 0.5rem 0;
-      font-size: 0.875rem;
-      color: var(--muted);
-      border-bottom: 1px solid rgba(31, 41, 55, 0.3);
+    
+    .module-item.complete::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #22c55e;
     }
-
-    .roadmap-list li:last-child {
-      border-bottom: none;
+    
+    .repo-link {
+      display: inline-block;
+      margin: 2rem 0;
+      padding: 0.6rem 1.2rem;
+      background: var(--link);
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
     }
-
-    .roadmap-list .module-id {
-      font-weight: 600;
-      color: var(--accent);
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
+    
+    .repo-link:hover {
+      opacity: 0.9;
     }
-
-    /* Connect Section */
-    .connect-grid {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 1.25rem;
+    
+    .note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 2rem 0;
     }
-
-    @media (max-width: 700px) {
-      .connect-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .connect-card {
-      background: linear-gradient(135deg, rgba(11, 18, 32, 0.9), rgba(11, 18, 32, 0.6));
-      border: 1px solid rgba(31, 41, 55, 0.8);
-      border-radius: 12px;
-      padding: 1.5rem;
-    }
-
-    .connect-card h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
+    
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
       color: var(--text);
+      transition: border-color 0.2s ease;
     }
-
-    .connect-card p {
-      font-size: 0.875rem;
-      color: var(--muted);
-      line-height: 1.65;
+    
+    .theme-toggle:hover {
+      border-color: var(--text);
     }
-
-    /* Footer */
+    
     footer {
-      margin-top: auto;
-      border-top: 1px solid rgba(31, 41, 55, 0.5);
-      background: rgba(2, 6, 23, 0.8);
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-muted);
     }
-
-    .footer-inner {
-      padding: 1.5rem 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-      font-size: 0.8rem;
-      color: var(--muted-soft);
+    
+    footer .motto {
+      font-style: italic;
+      margin-top: 0.3rem;
     }
-
-    .footer-motto {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: 'Cinzel', serif;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-    }
-
-    .footer-motto .eye {
-      font-size: 1.1rem;
+    
+    @media (max-width: 640px) {
+      body {
+        padding: 40px 16px;
+      }
+      h1 {
+        font-size: 1.5rem;
+      }
+      .theme-toggle {
+        top: 10px;
+        right: 10px;
+        padding: 6px 10px;
+        font-size: 0.85rem;
+      }
     }
   </style>
 </head>
-
 <body>
-<div class="page">
+  <button class="theme-toggle" id="themeToggle">
+    <span id="themeIcon">☀️</span>
+  </button>
+
+  <h1>MLSecOps Field Manual</h1>
+  <div class="subtitle">Documentation of ML Security Experiments</div>
   
-  <main>
-    <!-- Hero -->
-    <section class="hero">
-      <div class="container">
-        <div class="hero-card">
-          <div class="hero-logo-wrap">
-            <img src="assets/mlsecops-fm.png" alt="MLSecOps Field Manual emblem" class="hero-logo" />
-          </div>
-          <h1>
-            <span class="highlight">MLSecOps</span>
-            Field Manual<span class="tm">™</span>
-          </h1>
-          <p class="hero-body">
-            A <strong>reproducible library</strong> of small MLSecOps modules, patterns, and field notes.<br>
-            Each module is grounded in <strong>real lab runs</strong> with logs, metrics, and failure modes.
-          </p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="https://github.com/mlsecops-labs/field-manual">
-              View Field Manual Repo
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- What This Is -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">What This Is</h2>
-        </div>
-        <div class="grid-3">
-          <article class="card">
-            <div class="card-tag">Modules</div>
-            <h3>Small, Focused MLSecOps Scenarios</h3>
-            <p>
-              Each module runs in 10–20 minutes, self-contained and backed by real infrastructure: 
-              evasion attacks, RAG abuse, jailbreak logging, misconfigurations, and more.
-            </p>
-          </article>
-          <article class="card">
-            <div class="card-tag">Field Notes</div>
-            <h3>Logs, Diagrams & Failure Modes</h3>
-            <p>
-              The manual emphasizes <em>what actually broke</em>, what signals revealed it, and which mitigations held up under pressure.
-            </p>
-          </article>
-          <article class="card">
-            <div class="card-tag">Lab-Backed</div>
-            <h3>Tied to the MLSecOps Lab</h3>
-            <p>
-              The manual is the <strong>distillation</strong> of a private MLSecOps lab: 
-              Proxmox cluster, inference services, and RAG systems.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Roadmap -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Near-Term Roadmap</h2>
-        </div>
-        <div class="roadmap-card">
-          <div class="roadmap-header">
-            <h3>Initial Module Track</h3>
-            <span>Sequence subject to change as the lab evolves</span>
-          </div>
-          <ul class="roadmap-list">
-            <li><span class="module-id">Module 01</span> <a href="https://github.com/mlsecops-labs/modules/tree/main/module-01-evasion-logs-mitigation">Evasion attack: logs & mitigation</a></li>
-            <li><span class="module-id">Module 02</span> Safe model loading & environment hardening</li>
-            <li><span class="module-id">Module 03</span> LLM jailbreak monitoring & response</li>
-            <li><span class="module-id">Module 04</span> Retrieval poisoning against RAG pipelines</li>
-            <li><span class="module-id">Module 05</span> Embedding drift detection & guardrails</li>
-            <li><span class="module-id">Module 06</span> Agent tool misconfiguration & blast radius</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- How to Follow -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">How to Follow</h2>
-        </div>
-        <div class="connect-grid">
-          <article class="connect-card">
-            <h3>Field Manual Repository</h3>
-            <p>
-              Track the evolution of the manual, diagrams, and growth map in the 
-              <a href="https://github.com/mlsecops-labs/field-manual">field-manual repo</a>. 
-              Star the repo to get notified when new modules drop.
-            </p>
-          </article>
-          <article class="connect-card">
-            <h3>RAG-Powered Search</h3>
-            <p>
-              A dedicated RAG system indexed on lab docs powers deeper queries as the project grows.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
-
-    <!-- How This Is Made -->
-    <section class="section">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">How This Is Made</h2>
-        </div>
-        <div class="connect-grid">
-          <article class="connect-card">
-            <h3>Human-Led, AI-Augmented</h3>
-            <p>
-              This project uses AI tools as part of a <strong>human-led workflow</strong>. 
-              All technical decisions, security analysis, and lab work are human-driven. 
-              AI assists with drafting, code generation, and iteration — but every claim 
-              is validated against real infrastructure, and nothing ships without human review.
-            </p>
-          </article>
-          <article class="connect-card">
-            <h3>Reproducibility First</h3>
-            <p>
-              Unlike typical AI-generated content, everything here ties back to actual lab runs. 
-              If it's in the manual, it ran in the lab.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
-
+  <div class="description">
+    Documentation of attacks, defenses, and monitoring patterns tested in a private lab.
+    Each module is lab-validated, reproducible, and focused on operational clarity.
+  </div>
+  
+  <h2>Available Modules</h2>
+  <ul class="modules">
+    <li class="module-item complete">Module 1: Evasion Attack (FGSM) - Logs + Mitigation</li>
+    <li class="module-item">Module 2: Safe Model Loading</li>
+    <li class="module-item">Module 3: LLM Jailbreak + Detection + Mitigation</li>
+    <li class="module-item">Module 4: Retrieval Poisoning (RAG)</li>
+    <li class="module-item">Module 5: Embedding Drift Detection</li>
+    <li class="module-item">Module 6: Agent Tool Misconfiguration</li>
+  </ul>
+  
+  <a href="https://github.com/mlsecops-labs/field-manual" class="repo-link">View on GitHub</a>
+  
+  <div class="note">
+    This work uses AI tools for assistance. All lab experiments and decisions are human-led.
+  </div>
+  
   <footer>
-    <div class="container">
-      <div class="footer-inner">
-        <span>© 2025 Richard Spicer. MLSecOps Field Manual™. All rights reserved.</span>
-        <span class="footer-motto">
-          <span class="eye">👁</span>
-          <span>Vigilis in Machina™</span>
-        </span>
-      </div>
-    </div>
+    <div>Richard Spicer</div>
+    <div class="motto">Vigilis in Machina</div>
   </footer>
-</div>
+
+  <script>
+    const getTheme = () => {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+
+    const setTheme = (theme) => {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.getElementById('themeIcon').textContent = theme === 'dark' ? '☀️' : '🌙';
+      localStorage.setItem('theme', theme);
+    };
+
+    setTheme(getTheme());
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  </script>
 </body>
 </html>
