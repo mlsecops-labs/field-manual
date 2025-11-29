@@ -1,4 +1,4 @@
-# MLSecOps Field Manual™ – Concept
+# MLSecOps Field Manual – Concept
 
 ## Mission
 
